@@ -1,0 +1,99 @@
+@model InterviewTasks2023.Models.Book  
+@{  
+    Layout = null;  
+}  
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <meta name="viewport" content="width=device-width" />  
+    <title>ShowAllBookDetails</title>  
+</head>  
+<body>  
+    <script src="~/Scripts/jquery-1.7.1.min.js"></script>  
+    <script src="~/Scripts/jquery.validate.min.js"></script>  
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>  
+    <div style="font-family:Arial Black;">  
+            <h2 style="background-color: Yellow;color: Blue; text-align: center; font-style: oblique">SATYAPRAKASH's MVC Book CRUD Operation</h2>  
+        @*<h2 style="text-align:center"></h2>*@  
+        <p> @*<p style="text-align:center">*@  
+    @Html.ActionLink(linkText: "New Book", actionName: "InsertBook", controllerName: "Book")  
+        </p>  
+        <br />  
+        <br />  
+        <table border="1" align="center">  
+            <tr>  
+                <th style="background-color:Yellow;color:blue">  
+                    @Html.DisplayNameFor(model => model.BookName)  
+  
+                </th>  
+                <th style="background-color: Yellow;color: blue">  
+                    @Html.DisplayNameFor(model => model.Author)  
+                </th>  
+                <th style="background-color: Yellow;color: blue">  
+                    @Html.DisplayNameFor(model => model.IsAvailable)  
+                </th>  
+                <th style="background-color: Yellow;color: blue">  
+                    @Html.DisplayNameFor(model => model.Price)  
+                </th>  
+                <th style="background-color: Yellow;color: blue">  
+                    @Html.DisplayNameFor(model => model.ShelfId)  
+                </th>  
+                <th style="background-color: Yellow;color: blue">  
+                    Operation  
+                </th>  
+            </tr>  
+  
+            @foreach (var item in Model.ShowallBook)  
+            {  
+                <tr>  
+                    <td>  
+                        @Html.DisplayFor(modelItem => item.BookName)  
+                    </td>  
+                    <td>  
+                        @Html.DisplayFor(modelItem => item.Author)  
+                    </td>  
+                    <td>  
+                        @Html.DisplayFor(modelItem => item.IsAvailable)  
+                    </td>  
+                    <td>  
+                        @Html.DisplayFor(modelItem => item.Price)  
+                    </td>  
+                    <td>  
+                        @Html.DisplayFor(modelItem => item.ShelfId)  
+                    </td>  
+                    <td>  
+  
+                        @Html.ActionLink("Modify", "Edit", new { id = item.Code }) |  
+  
+                        @Html.ActionLink("Detail", "Details", new { id = item.Code }) |  
+                        @Html.ActionLink("Remove", "Delete", new { id = item.Code},  
+                        new { onclick = "return confirm('Are sure wants to delete?');" })  
+                    </td>  
+                </tr>  
+            }  
+        </table>  
+        @if (TempData["result1"] != null)  
+        {  
+            <script type="text/javascript">  
+                alert("Record Is Inserted Successfully");  
+            </script>  
+        }  
+        @if (TempData["result2"] != null)  
+        {  
+            <script type="text/javascript">  
+                alert("Record Is Updated Successfully");  
+            </script>  
+        }  
+        @if (TempData["result3"] != null)  
+        {             
+        <script type="text/javascript">  
+             alert("No hard delete, it's a Flag ");  
+        </script>             
+        }   
+        <br/>  
+        <br/>  
+        <footer>  
+            <p style="background-color: Yellow;text-align:center ; color:blue">© @DateTime.Now.ToLocalTime()</p> @*Add Date Time*@  
+        </footer>  
+    </div>  
+</body> </html>  

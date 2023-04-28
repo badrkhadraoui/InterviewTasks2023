@@ -1,0 +1,71 @@
+USE [Library]  
+GO  
+SET ANSI_NULLS ON  
+GO  
+SET QUOTED_IDENTIFIER ON  
+GO  
+CREATE PROCEDURE [dbo].[Usp_InsertUpdateDelete_Book]  
+@Code INT = NULL  
+,@BookName VARCHAR(255) = NULL  
+,@Author VARCHAR(255) = NULL  
+,@IsAvailable BIT  = FALSE
+,@Price Money  = NULL
+,@ShelfId INT = NULL  
+,@Query INT  = NULL
+AS  
+BEGIN  
+IF (@Query = 1)  
+BEGIN  
+
+INSERT INTO Book(  
+BookName  
+,Author 
+,IsAvailable   
+,Price  
+,ShelfId  
+)  
+VALUES (  
+@BookName  
+,@Author
+,@IsAvailable    
+,@Price  
+,@ShelfId  
+)  
+IF (@@ROWCOUNT > 0)  
+BEGIN  
+SELECT 'Insert'  
+END  
+END  
+IF (@Query = 2)  
+BEGIN  
+UPDATE Book  
+SET BookName = @BookName  
+,IsAvailable = @IsAvailable  
+,Author = @Author  
+,Price = @Price  
+,ShelfId = @ShelfId  
+WHERE Book.Code = @Code  
+SELECT 'Update'  
+END  
+IF (@Query = 3)  
+BEGIN  
+/*
+NO HARD DELETE IN DESCRIPTION FILE
+DELETE  
+FROM Book  
+WHERE Book.Code = @Code  
+*/
+SELECT 'No hard-delete'  
+END  
+IF (@Query = 4)  
+BEGIN  
+SELECT *  
+FROM Book  
+END  
+END  
+IF (@Query = 5)  
+BEGIN  
+SELECT *  
+FROM Book  
+WHERE Book.Code = @Code  
+END
